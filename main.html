@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>圣诞快乐 - 佳</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Serif+SC:wght@500;700&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            --bg0: #070a13;
+            --bg1: #0b1630;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-strong: rgba(255, 255, 255, 0.12);
+            --line: rgba(255, 255, 255, 0.18);
+            --text: rgba(255, 255, 255, 0.92);
+            --muted: rgba(255, 255, 255, 0.72);
+            --gold: #ffd36a;
+            --red: #ff4d6d;
+            --green: #29d391;
+            --green2: #0aa66c;
+            --shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
+            --blur: 14px;
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, "PingFang SC", "Noto Serif SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(1000px 700px at 15% 20%, rgba(255, 211, 106, 0.18), transparent 60%),
+                radial-gradient(900px 600px at 85% 25%, rgba(255, 77, 109, 0.16), transparent 55%),
+                radial-gradient(900px 700px at 50% 85%, rgba(41, 211, 145, 0.12), transparent 60%),
+                linear-gradient(180deg, var(--bg0), var(--bg1));
+        }
+
+        /* 星光 */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.7;
+            background-image:
+                radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.9), transparent 40%),
+                radial-gradient(1px 1px at 30% 70%, rgba(255, 255, 255, 0.8), transparent 40%),
+                radial-gradient(1px 1px at 45% 30%, rgba(255, 255, 255, 0.75), transparent 40%),
+                radial-gradient(1px 1px at 60% 80%, rgba(255, 255, 255, 0.8), transparent 40%),
+                radial-gradient(1px 1px at 75% 35%, rgba(255, 255, 255, 0.8), transparent 40%),
+                radial-gradient(1px 1px at 88% 65%, rgba(255, 255, 255, 0.75), transparent 40%);
+            filter: blur(0.2px);
+            animation: starsFloat 10s ease-in-out infinite;
+        }
+
+        @keyframes starsFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.65;
+            }
+
+            50% {
+                transform: translateY(10px);
+                opacity: 0.85;
+            }
+        }
+
+        /* 雪花 */
+        .snow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .flake {
+            position: absolute;
+            top: -10vh;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+            will-change: transform;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate3d(0, -10vh, 0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate3d(var(--drift, 0px), 110vh, 0) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* 主容器 */
+        .wrap {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: min(980px, 92vw);
+            min-height: min(640px, 80vh);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.06));
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background:
+                radial-gradient(600px 220px at 25% 10%, rgba(255, 211, 106, 0.25), transparent 55%),
+                radial-gradient(600px 220px at 75% 0%, rgba(255, 77, 109, 0.18), transparent 60%),
+                radial-gradient(600px 220px at 65% 85%, rgba(41, 211, 145, 0.14), transparent 55%);
+            filter: blur(22px);
+            z-index: 0;
+        }
+
+        .card-inner {
+            position: relative;
+            z-index: 1;
+            padding: 28px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 22px;
+            align-items: center;
+            min-height: 100%;
+        }
+
+        @media (max-width: 860px) {
+            .card-inner {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                padding: 18px;
+            }
+        }
+
+        /* 左侧文案 */
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            padding: 10px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        .badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 18px rgba(255, 211, 106, 0.55);
+        }
+
+        .title {
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(46px, 6vw, 78px);
+            line-height: 0.95;
+            letter-spacing: 0.5px;
+            text-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .subtitle {
+            font-family: "Noto Serif SC", serif;
+            font-weight: 700;
+            font-size: clamp(18px, 2.2vw, 24px);
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .desc {
+            color: var(--muted);
+            font-size: 14.5px;
+            line-height: 1.8;
+            max-width: 48ch;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            border: 0;
+            cursor: pointer;
+            padding: 12px 14px;
+            border-radius: 14px;
+            font-weight: 600;
+            color: rgba(9, 14, 26, 0.95);
+            background: linear-gradient(180deg, #ffe08a, #ffd36a);
+            box-shadow: 0 14px 30px rgba(255, 211, 106, 0.22);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            user-select: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.02);
+            box-shadow: 0 18px 38px rgba(255, 211, 106, 0.28);
+        }
+
+        .btn:active {
+            transform: translateY(0px);
+        }
+
+        .hint {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2px;
+        }
+
+        /* 右侧舞台 */
+        .stage {
+            position: relative;
+            height: 520px;
+            min-height: 420px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            overflow: hidden;
+        }
+
+        @media (max-width: 860px) {
+            .stage {
+                height: 420px;
+            }
+        }
+
+        .stage::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 42%;
+            background: radial-gradient(120% 90% at 50% 20%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+            transform: translateY(22%);
+            filter: blur(0.4px);
+        }
+
+        .scene {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .scene.hidden {
+            opacity: 0;
+            transform: translateY(12px) scale(0.98);
+            pointer-events: none;
+        }
+
+        /* 礼盒 */
+        .gift {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            transform: translateY(8px);
+            filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.55));
+            cursor: pointer;
+            user-select: none;
+            animation: giftFloat 2.4s ease-in-out infinite;
+        }
+
+        @keyframes giftFloat {
+
+            0%,
+            100% {
+                transform: translateY(8px);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .gift .body {
+            position: absolute;
+            inset: 28px 0 0 0;
+            background: linear-gradient(180deg, #ff5f7a, #d81f45);
+            border-radius: 18px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .gift .lid {
+            position: absolute;
+            left: -8px;
+            right: -8px;
+            top: 0;
+            height: 54px;
+            background: linear-gradient(180deg, #ff8a9c, #ff5f7a);
+            border-radius: 18px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+            transform-origin: 20% 100%;
+            transition: transform 0.65s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .gift .ribbonV,
+        .gift .ribbonH {
+            position: absolute;
+            background: linear-gradient(180deg, #ffe08a, #ffd36a);
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+        }
+
+        .gift .ribbonV {
+            width: 28px;
+            top: 28px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+
+        .gift .ribbonH {
+            height: 28px;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-18%);
+            border-radius: 10px;
+        }
+
+        .bow {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92px;
+            height: 44px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            align-items: center;
+            justify-items: center;
+            pointer-events: none;
+        }
+
+        .bow::after {
+            content: "";
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #ffe08a, #ffd36a);
+            box-shadow: 0 10px 18px rgba(255, 211, 106, 0.18);
+            grid-column: 1 / -1;
+            justify-self: center;
+        }
+
+        .bow span {
+            width: 42px;
+            height: 28px;
+            background: linear-gradient(180deg, rgba(255, 224, 138, 0.98), rgba(255, 211, 106, 0.92));
+            border-radius: 999px;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07);
+        }
+
+        .bow span:first-child {
+            transform: rotate(-14deg);
+        }
+
+        .bow span:last-child {
+            transform: rotate(14deg);
+        }
+
+        .giftTip {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 10px;
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* 圣诞树 */
+        .tree {
+            width: 300px;
+            height: 420px;
+            position: relative;
+            transform: translateY(12px);
+            filter: drop-shadow(0 18px 50px rgba(0, 0, 0, 0.55));
+        }
+
+        .tree .star {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 56px;
+            background: radial-gradient(circle at 50% 55%, #ffffff 0%, #ffe58a 35%, #ffbe55 65%, #d88900 100%);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            filter: drop-shadow(0 0 22px rgba(255, 211, 106, 0.75));
+            animation: starGlow 1.6s ease-in-out infinite, starSpin 18s linear infinite;
+        }
+
+        @keyframes starGlow {
+
+            /* 闪烁星光 */
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+                filter: drop-shadow(0 0 14px rgba(255, 211, 106, 0.55));
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.08);
+                filter: drop-shadow(0 0 26px rgba(255, 211, 106, 0.8));
+            }
+        }
+
+        .layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: solid transparent;
+            border-right: solid transparent;
+            filter: drop-shadow(0 0 14px rgba(41, 211, 145, 0.25));
+        }
+
+        .layer.l1 {
+            top: 74px;
+            border-width: 0 82px 110px 82px;
+            border-bottom-color: rgba(85, 239, 196, 0.96);
+        }
+
+        .layer.l2 {
+            top: 148px;
+            border-width: 0 110px 135px 110px;
+            border-bottom-color: rgba(41, 211, 145, 0.94);
+        }
+
+        .layer.l3 {
+            top: 238px;
+            border-width: 0 145px 170px 145px;
+            border-bottom-color: rgba(10, 166, 108, 0.94);
+        }
+
+        .layer.l4 {
+            top: 338px;
+            border-width: 0 170px 40px 170px;
+            border-bottom-color: rgba(6, 126, 82, 0.92);
+        }
+
+        /* 细小裙摆 */
+
+        .trunk {
+            position: absolute;
+            bottom: 34px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #7a5130, #4a2d18);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        /* 彩灯装饰（玻璃球 + 光晕） */
+        .orn {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), currentColor 45%, rgba(0, 0, 0, 0.18) 100%);
+            box-shadow: 0 0 18px currentColor, 0 0 46px color-mix(in srgb, currentColor 55%, transparent);
+            animation: twinkle 1.25s ease-in-out infinite alternate;
+        }
+
+        .orn::after {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 55%);
+            opacity: 0.65;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: 0.55;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.08);
+            }
+        }
+
+        /* 细小星光粒子 */
+        .spark {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 65%);
+            opacity: 0.65;
+            animation: sparkle 2.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                transform: scale(0.4);
+                opacity: 0.35;
+            }
+
+            50% {
+                transform: scale(1) translateY(-2px);
+                opacity: 1;
+            }
+        }
+
+        /* 闪耀丝带 */
+        /* ================ Tree Enhanced ================ */
+        .tree-svg .leaf-outline {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.28);
+            stroke-width: 3;
+            mix-blend-mode: overlay;
+        }
+
+        .tree-svg .tree-halo {
+            fill: rgba(255, 255, 255, 0.12);
+            filter: blur(12px);
+        }
+
+        .tree-svg .bauble {
+            transform-origin: center;
+            animation: blink 1.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                filter: drop-shadow(0 0 2px currentColor);
+                transform: scale(0.9);
+            }
+
+            to {
+                filter: drop-shadow(0 0 8px currentColor);
+                transform: scale(1);
+            }
+        }
+
+        /* ================================================= */
+        .garlands {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .garlands path {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 8 12;
+            animation: dash 7s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 211, 106, 0.45));
+        }
+
+        .garlands path:nth-child(2) {
+            animation-delay: -2s;
+            stroke: #ff9e9e;
+            filter: drop-shadow(0 0 10px rgba(255, 158, 158, 0.45));
+        }
+
+        .garlands path:nth-child(3) {
+            animation-delay: -4s;
+            stroke: #74b9ff;
+            filter: drop-shadow(0 0 10px rgba(116, 185, 255, 0.45));
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -180;
+            }
+        }
+
+        @keyframes starSpin {
+            0% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        to {
+            stroke-dashoffset: -180;
+        }
+        }
+
+        /* 文字 reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bgm" loop preload="auto">
+        <source src="happy-christmas-455481.mp3" type="audio/mp3" />
+        您的浏览器不支持音频播放。
+    </audio>
+
+    <div class="stars" aria-hidden="true"></div>
+    <div class="snow" id="snow" aria-hidden="true"></div>
+
+    <main class="wrap">
+        <section class="card" role="region" aria-label="圣诞祝福卡片">
+            <div class="card-inner">
+                <div class="brand">
+                    <div class="badge"><span class="dot"></span><span>Christmas Greeting · 2025</span></div>
+                    <p></p>
+                    <p></p>
+                    <h1 class="title reveal" id="heroTitle">Merry Christmas</h1>
+                    <p class="subtitle reveal" id="heroSub">佳，圣诞快乐！</p>
+                    <p class="desc reveal" id="heroDesc">愿圣诞的星光为你点亮前路，新年的钟声为你带来希望。<br />岁末有暖，年初有光，所求皆如愿，所行化坦途。</p>
+                    <div class="actions"><button class="btn" id="openBtn" type="button"><span>打开盒子</span><span
+                                aria-hidden="true">→</span></button></div>
+                </div>
+
+                <div class="stage" aria-label="互动区域">
+                    <div class="scene" id="sceneGift">
+                        <div class="gift" id="gift" role="button" aria-label="打开礼物" tabindex="0">
+                            <div class="lid" id="giftLid"></div>
+                            <div class="body"></div>
+                            <div class="ribbonV"></div>
+                            <div class="ribbonH"></div>
+                            <div class="bow" aria-hidden="true"><span></span><span></span></div>
+                        </div>
+                    </div>
+
+                    <div class="scene hidden" id="sceneTree" aria-hidden="true">
+                        <div class="tree" id="tree">
+                            <!-- 全新SVG圣诞树 -->
+                            <svg class="tree-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#38ef7d" />
+                                        <stop offset="100%" stop-color="#0f9b4c" />
+                                    </linearGradient>
+                                    <radialGradient id="starGrad" cx="50%" cy="45%" r="50%">
+                                        <stop offset="0%" stop-color="#ffffff" />
+                                        <stop offset="40%" stop-color="#ffe58a" />
+                                        <stop offset="70%" stop-color="#ffbe55" />
+                                        <stop offset="100%" stop-color="#d88900" />
+                                    </radialGradient>
+                                </defs>
+                                <!-- 背光 -->
+                                <circle class="tree-halo" cx="100" cy="140" r="105" />
+                                <!-- 星星 -->
+                                <polygon points="100,5 112,40 150,40 118,62 130,98 100,78 70,98 82,62 50,40 88,40"
+                                    fill="url(#starGrad)" />
+                                <!-- 树叶三层 + 霜亮描边 -->
+                                <polygon points="100,30 140,100 60,100" fill="url(#leafGrad)" />
+                                <polygon class="leaf-outline" points="100,30 140,100 60,100" />
+                                <polygon points="100,70 160,150 40,150" fill="url(#leafGrad)" />
+                                <polygon class="leaf-outline" points="100,70 160,150 40,150" />
+                                <polygon points="100,120 180,210 20,210" fill="url(#leafGrad)" />
+                                <polygon class="leaf-outline" points="100,120 180,210 20,210" />
+                                <!-- 树干 -->
+                                <rect x="80" y="210" width="40" height="30" rx="6" fill="#734d29" />
+                                <!-- 装饰球 -->
+                                <circle class="bauble" cx="85" cy="90" r="6" fill="#ffd36a" />
+                                <circle class="bauble" cx="115" cy="110" r="6" fill="#ff4d6d" />
+                                <circle class="bauble" cx="75" cy="140" r="6" fill="#74b9ff" />
+                                <circle class="bauble" cx="135" cy="155" r="6" fill="#ffffff" />
+                                <circle class="bauble" cx="100" cy="185" r="6" fill="#ffd36a" />
+                                <!-- 新增球 -->
+                                <circle class="bauble" cx="65" cy="115" r="6" fill="#ff4d6d" />
+                                <circle class="bauble" cx="125" cy="85" r="6" fill="#ffd36a" />
+                                <circle class="bauble" cx="150" cy="130" r="6" fill="#74b9ff" />
+                                <circle class="bauble" cx="55" cy="175" r="6" fill="#ffffff" />
+                            </svg>
+                            <div class="star"></div>
+                            <div class="layer l1"></div>
+                            <div class="layer l2"></div>
+                            <div class="layer l3"></div>
+                            <div class="trunk"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const bgm = document.getElementById('bgm');
+        const openBtn = document.getElementById('openBtn');
+        const gift = document.getElementById('gift');
+        const giftLid = document.getElementById('giftLid');
+        const sceneGift = document.getElementById('sceneGift');
+        const sceneTree = document.getElementById('sceneTree');
+
+        const revealEls = [document.getElementById('heroTitle'), document.getElementById('heroSub'), document.getElementById('heroDesc')];
+
+        // 尝试自动播放
+        function tryPlay() { bgm.volume = 0.45; bgm.play().catch(() => { }); }
+
+        function revealText() { revealEls.forEach((el, idx) => setTimeout(() => el.classList.add('show'), 160 + idx * 130)); }
+
+        let opened = false;
+        function openGift() {
+            if (opened) return; opened = true;
+            tryPlay();
+            giftLid.style.transform = 'translateY(-18px) rotate(-18deg)';
+            setTimeout(() => {
+                sceneGift.classList.add('hidden');
+                sceneTree.classList.remove('hidden');
+                sceneTree.setAttribute('aria-hidden', 'false');
+                decorateTree();
+            }, 520);
+        }
+
+        function decorateTree() {
+            // 新版本圣诞树已为静态 SVG，不再动态生成彩灯
+            return;
+            const tree = document.getElementById('tree');
+            const colors = ['#ffd36a', '#ff4d6d', '#74b9ff', '#ffffff'];
+            tree.querySelectorAll('.orn').forEach(n => n.remove());
+            const layers = [
+                { y: 0.34, count: 4, spread: 60 },
+                { y: 0.46, count: 6, spread: 90 },
+                { y: 0.60, count: 8, spread: 120 }
+            ];
+            layers.forEach(layer => {
+                for (let i = 0; i < layer.count; i++) {
+                    const dot = document.createElement('div'); dot.className = 'orn';
+                    dot.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    const offset = (Math.random() * layer.spread - layer.spread / 2);
+                    dot.style.left = 'calc(50% + ' + offset + 'px)';
+                    dot.style.top = (layer.y * 100 + (Math.random() * 4 - 2)) + '%';
+                    dot.style.width = dot.style.height = (8 + Math.random() * 6) + 'px';
+                    dot.style.animationDelay = (Math.random() * 0.8) + 's';
+                    tree.appendChild(dot);
+                }
+            });
+        }
+
+        function createSnow() {
+            const snow = document.getElementById('snow'); const count = 80; const glyphs = ['❄', '❅', '❆'];
+            for (let i = 0; i < count; i++) {
+                const f = document.createElement('div'); f.className = 'flake'; f.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+                const size = 10 + Math.random() * 14; const left = Math.random() * 100; const dur = 5.5 + Math.random() * 4.5; const delay = Math.random() * 6; const drift = (Math.random() * 120 - 60).toFixed(1) + 'px';
+                f.style.left = left + 'vw'; f.style.fontSize = size + 'px'; f.style.animationDuration = dur + 's'; f.style.animationDelay = delay + 's'; f.style.setProperty('--drift', drift); f.style.opacity = (0.35 + Math.random() * 0.6).toFixed(2);
+                snow.appendChild(f);
+            }
+        }
+
+        // 事件绑定
+        openBtn.addEventListener('click', openGift);
+        gift.addEventListener('click', openGift);
+        gift.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGift(); } });
+
+        window.addEventListener('load', () => { createSnow(); revealText(); tryPlay(); });
+    </script>
+</body>
+
+</html>
